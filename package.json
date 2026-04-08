@@ -1,0 +1,16 @@
+{
+  "name": "djbc-wine-and-more",
+  "version": "1.0.0",
+  "description": "Site web de DJBC Wine and More",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "build": "echo 'Build completed'"
+  },
+  "keywords": ["wine", "djbc", "static-site"],
+  "author": "DJBC Company",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+} 

@@ -1,0 +1,1050 @@
+/* --- Root Variables --- */
+        :root {
+            --color-primary: #722F37; /* Bordeaux profond */
+            --color-secondary: #8B4513; /* Brun chocolat */
+            --color-gold: #D4AF37; /* Or élégant */
+            --color-cream: #FDF6E3; /* Crème champagne */
+            --color-beige: #F5F1E8; /* Beige doux */
+            --color-dark: #2C1810; /* Brun foncé */
+            --color-text: #3A3A3A; /* Gris anthracite */
+            --color-light-text: #6B6B6B; /* Gris moyen */
+            /* --font-heading: 'Playfair Display', sans-serif; */
+            --font-heading: 'Josefin Sans', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --shadow-light: 0 2px 10px rgba(0,0,0,0.1);
+            --shadow-medium: 0 8px 25px rgba(0,0,0,0.15);
+            --shadow-heavy: 0 15px 35px rgba(0,0,0,0.2);
+            --gradient-wine: linear-gradient(135deg, #722F37 0%, #8B4513 100%);
+            --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- Reset et Base --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            background-color: var(--color-cream);
+            line-height: 1.7;
+            overflow-x: hidden;
+            padding-top: 100px; /* Adjust based on header height */
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            padding-top: 20px;
+        }
+
+        /* --- Typography --- */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            color: var(--color-primary);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; }
+        h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; }
+        h3 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 600; }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--color-primary);
+            transition: var(--transition);
+        }
+
+        a:hover {
+            color: var(--color-gold);
+        }
+
+        /* --- Boutons Modernisés --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            margin: 8px;
+            border: 2px solid var(--color-primary);
+            background: var(--gradient-wine);
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            box-shadow: var(--shadow-light);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+            background: var(--gradient-gold);
+            border-color: var(--color-gold);
+            color: var(--color-primary);
+        }
+
+        .btn-secondar {
+            background: transparent;
+            color: var(--color-primary);
+            border-color: var(--color-primary);
+        }
+
+        .btn-secondar:hover {
+            background: var(--gradient-wine);
+            color: white;      
+        }
+
+        /* --- Header Modernisé --- */
+        header {
+            background: rgba(253, 246, 227, 0.95);
+            
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background: rgba(253, 246, 227, 0.98);
+            box-shadow: var(--shadow-medium);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            color: var(--color-primary);
+            font-weight: 700;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .logo::after {
+            content: '🍷';
+            margin-left: 10px;
+            font-size: 0.8em;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: var(--color-text);
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-wine);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        nav ul li a:hover {
+            color: var(--color-primary);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        nav ul li a:hover::before {
+            width: 80%;
+        }
+
+        /* --- Hero Section Spectaculaire (Updated for Video Background) --- */
+.hero {
+    position: relative;
+    height: 100vh;
+    background: linear-gradient(135deg, rgba(44, 24, 16, 0.7) 0%, rgba(114, 47, 55, 0.8) 100%); /* Fallback background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    margin-top: -30px; /* Compensate for fixed header height */
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 70%);
+    z-index: 1; /* Ensure the overlay is above the video */
+}
+
+.hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the video covers the entire area */
+    z-index: 0; /* Place the video behind other content */
+}
+
+.hero-content {
+    position: relative; /* To be above the video and overlay */
+    z-index: 2;
+    max-width: 900px;
+    padding: 40px;
+    animation: fadeInUp 1s ease-out;
+}
+
+/* ... rest of your hero-content styles ... */
+        .hero-content h1 {
+            color: var(--color-cream);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .hero-content p {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            margin-bottom: 40px;
+            color: rgba(255,255,255,0.9);
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+            line-height: 1.6;
+        }
+
+        /* --- Sections Modernisées --- */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        section:nth-of-type(odd) { /* Use odd/even for alternating background */
+            background: var(--color-cream);
+        }
+        section:nth-of-type(even) {
+            background: var(--color-beige);
+        }
+
+        section h2 {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-wine);
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -20px;
+            border-radius: 2px;
+        }
+
+        /* --- Cards Modernes (General) --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .card { /* Base for all cards (product, experience, article, review) */
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-wine);
+            transform: scaleX(0);
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card img {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content h3 {
+            margin-bottom: 15px;
+            color: var(--color-primary);
+            font-size: 1.4rem;
+        }
+
+        .card-content p {
+            color: var(--color-light-text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        /* --- Filtres Modernisés (Removed from index.html) --- */
+
+        /* --- Contact Section --- */
+        #contact .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-form, .contact-info {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+        }
+
+        .contact-form h3, .contact-info h3 {
+            margin-bottom: 30px;
+            color: var(--color-primary);
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 15px;
+            border: 2px solid rgba(114, 47, 55, 0.2);
+            border-radius: var(--border-radius);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(114, 47, 55, 0.1);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-info strong {
+            color: var(--color-primary);
+            min-width: 100px;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-top: 30px;
+            box-shadow: var(--shadow-medium);
+        }
+         /*--- Contact Section --- */
+            #contact .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-form, .contact-info {
+            background: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--color-border);
+        }
+
+        .contact-form h3, .contact-info h3 {
+            margin-bottom: 30px;
+            color: var(--color-primary);
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 16px;
+            border: 2px solid var(--color-border);
+            border-radius: var(--border-radius-small);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--color-cream);
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(139, 21, 56, 0.1);
+            background: white;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-info strong {
+            color: var(--color-primary);
+            min-width: 100px;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            margin-top: 30px;
+            box-shadow: var(--shadow-medium);
+        } 
+
+        
+        /* --- Footer Moderne --- */
+        footer {
+            background: linear-gradient(135deg, var(--color-dark) 0%, #1a1a1a 100%);
+            color: var(--color-cream);
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        footer .social-links {
+            margin-bottom: 40px;
+        }
+
+        footer .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            margin: 0 15px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        footer .social-links a:hover {
+            background: var(--gradient-gold);
+            transform: translateY(-3px);
+        }
+
+        .newsletter-signup {
+            max-width: 500px;
+            margin: 0 auto 40px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-signup input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+
+        .newsletter-signup button {
+            padding: 15px 30px;
+            background: var(--gradient-wine);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .newsletter-signup button:hover {
+            background: var(--gradient-gold);
+            transform: translateY(-2px);
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* --- Responsive --- */
+        /* @media (max-width: 768px) {
+            body {
+                padding-top: 80px;
+            }
+            .hero {
+                height: 80vh;
+            }
+            nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            section {
+                padding: 60px 0;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            #contact .content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .filter-section {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .newsletter-signup {
+                flex-direction: column;
+            }
+        } */
+
+         /* --- Menu toggle --- */
+        .menu-toggle {
+            display: none;
+        }
+
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 80px;
+            }
+            .hero-content p{
+                display: none;
+            }
+            .logo {
+                font-size: 20px; /* ✅ Police réduite sur petits écrans */
+            }
+            .hero {
+                height: 90vh;
+                margin-top: -30px;
+            }
+
+            .surplus{
+                display: none;
+            }
+            nav {
+                flex-direction: row;
+                gap: 20px;
+                align-items: flex-start;
+            }
+
+            .menu-toggle {
+                display: block;
+                font-size: 28px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #333;
+                margin-left: auto;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+                width: 100%;
+                background-color: #fdf6e3;
+                padding: 10px 0;
+                border-radius: 8px;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            #contact .content {
+                grid-template-columns: 100%;
+                gap: 40px;
+                margin:0;
+                padding: 0;
+            }
+            .contact-info{
+                display:flex;
+                flex-direction: column;
+            }
+
+            .filter-section {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .newsletter-signup {
+                flex-direction: column;
+            }
+        }
+
+         @media (min-width: 510px) and (max-width: 550px) { 
+            body {
+                padding-top: 80px;
+            }
+            nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            section {
+                padding: 60px 0;
+            }
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .filter-section {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .newsletter-signup {
+                flex-direction: column;
+            }
+        }
+
+         @media (min-width: 768px) and (max-width: 810px) { 
+            .wine-card img {
+                height: 160px;
+            }
+            
+            .wine-card .card-content {
+                padding: 12px;
+            }
+            
+            .wine-card h3 {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+            
+            .wine-description {
+                -webkit-line-clamp: 2; /* 2 lignes max sur mobile */
+            }
+
+            body {
+                padding-top: 80px;
+            }
+            .hero-content p{
+                display: none;
+            }
+            .logo {
+                font-size: 20px; /* ✅ Police réduite sur petits écrans */
+            }
+            .hero {
+                height: 90vh;
+                margin-top: -30px;
+            }
+
+            .surplus{
+                display: none;
+            }
+            nav {
+                flex-direction: row;
+                gap: 20px;
+                align-items: flex-start;
+            }
+
+            .menu-toggle {
+                display: block;
+                font-size: 28px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #333;
+                margin-left: auto;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+                width: 100%;
+                background-color: #fdf6e3;
+                padding: 10px 0;
+                border-radius: 8px;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            #blog .grid{
+                grid-template-columns: repeat(1, 1fr);
+                gap: 20px;
+            }
+
+             #contact .content{
+                flex-direction: column;
+                grid-template-columns: repeat(1, 1fr);
+                gap: 20px;
+            }
+        }
+
+         @media (min-width: 820px) and (max-width: 850px) { 
+            .wine-card img {
+                height: 160px;
+            }
+            
+            .wine-card .card-content {
+                padding: 12px;
+            }
+            
+            .wine-card h3 {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+            
+            
+
+            .wine-description {
+                -webkit-line-clamp: 2; /* 2 lignes max sur mobile */
+            }
+
+            body {
+                padding-top: 80px;
+            }
+            .hero-content p{
+                display: none;
+            }
+            .logo {
+                font-size: 20px; /* ✅ Police réduite sur petits écrans */
+            }
+            .hero {
+                height: 90vh;
+                margin-top: -30px;
+            }
+
+            .surplus{
+                display: none;
+            }
+            nav {
+                flex-direction: row;
+                gap: 20px;
+                align-items: flex-start;
+            }
+
+            .menu-toggle {
+                display: block;
+                font-size: 28px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                color: #333;
+                margin-left: auto;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+                width: 100%;
+                background-color: #fdf6e3;
+                padding: 10px 0;
+                border-radius: 8px;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            #about .grid{
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            #blog .grid{
+                grid-template-columns: repeat(1, 1fr);
+                gap: 20px;
+            }
+
+            #contact .content{
+                flex-direction: column;
+                grid-template-columns: repeat(1, 1fr);
+                gap: 20px;
+            }
+        }
+
+        @media (min-width: 320px) and (max-width: 370px) {
+            .hero {
+                height: 90vh;
+                margin-top:20px;
+            }
+            .header{
+                padding: 0;
+            }
+            .nav{
+                padding: 0
+            }
+        }
+
+        
+
+
+         /* --- Styles spécifiques aux vins (Same as index.html) --- */
+         .wine-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .wine-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-wine);
+            transform: scaleX(0);
+            transition: var(--transition);
+            z-index: 1;
+        }
+        .wine-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-heavy);
+        }
+        .wine-card:hover::before {
+            transform: scaleX(1);
+        }
+        .wine-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+        .wine-card:hover img {
+            transform: scale(1.05);
+        }
+        .wine-card .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .wine-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--color-primary);
+            line-height: 1.3;
+        }
+        .wine-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .wine-detail {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+        .wine-detail strong {
+            color: var(--color-primary);
+            min-width: 80px;
+            font-weight: 600;
+        }
+        .wine-description {
+            color: var(--color-light-text);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        .wine-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+        .price-tag {
+            background: var(--gradient-gold);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        /* Badge couleur vin */
+        .wine-color-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .wine-color-badge.rouge {
+            background: linear-gradient(135deg, #8B0000, #DC143C);
+            color: white;
+        }
+        .wine-color-badge.blanc {
+            background: linear-gradient(135deg, #F5F5DC, #FFFACD);
+            color: var(--color-primary);
+            border: 1px solid rgba(114, 47, 55, 0.2);
+        }
+        .wine-color-badge.rose {
+            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+            color: white;
+        }

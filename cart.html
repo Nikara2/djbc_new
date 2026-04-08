@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre Panier - DJBC Wine and More</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap">
+    <link rel="stylesheet" href="/style/index.css">
+    <link rel="stylesheet" href="/style/cart.css">
+    <style>
+        .cart-page {
+            padding: 40px 0;
+            min-height: 70vh;
+        }
+        
+        .cart-page .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .cart-page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .cart-page-header h1 {
+            color: #8B4513;
+            margin-bottom: 10px;
+        }
+        
+        .cart-page-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .cart-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .cart-items-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .cart-summary {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .cart-summary h3 {
+            color: #8B4513;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #8B4513;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            background: #8B4513;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .checkout-btn:hover {
+            background: #D4AF37;
+        }
+        
+        .continue-shopping {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .continue-shopping a {
+            color: #8B4513;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .continue-shopping a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .cart-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .cart-summary {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">DJBC Wine and More</div>
+                <button class="menu-toggle" id="menu-toggle">&#9776;</button>
+                <ul id="nav-menu">
+                    <li><a href="index.html#home">Accueil</a></li>
+                    <li><a href="index.html#about">À Propos</a></li>
+                    <li><a href="wines.html">Nos Vins & Produits</a></li>
+                    <li><a href="index.html#experiences">Expériences</a></li>
+                    <li><a href="index.html#blog">Blog & Conseils</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                    </svg>
+                    <span id="cart-count" class="cart-count">0</span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Modal du panier -->
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-panel">
+            <div class="cart-header">
+                <h3>Votre Panier</h3>
+                <button class="cart-close" onclick="toggleCart()">&times;</button>
+            </div>
+            <div id="cart-container" class="cart-container">
+                <!-- Le contenu du panier sera injecté ici par JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <main class="cart-page">
+        <div class="container">
+            <div class="cart-page-header">
+                <h1>Votre Panier</h1>
+                <p>Révisons votre sélection de vins d'exception</p>
+            </div>
+
+            <div class="cart-content">
+                <div class="cart-items-section">
+                    <div id="cart-items-container">
+                        <!-- Le contenu du panier sera injecté ici -->
+                    </div>
+                </div>
+
+                <div class="cart-summary">
+                    <h3>Récapitulatif de commande</h3>
+                    <div id="cart-summary-content">
+                        <!-- Le récapitulatif sera injecté ici -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/14HVRce3dsw/" target="_blank" aria-label="Facebook"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/facebook-new.png" alt="Facebook icon"></a>
+                <a href="#" aria-label="Instagram"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/instagram-new.png" alt="Instagram icon"></a>
+                <a href="#" aria-label="LinkedIn"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/linkedin.png" alt="LinkedIn icon"></a>
+            </div>
+            <div class="newsletter-signup">
+                <p style="color: white;">Abonnez-vous à notre newsletter pour les dernières nouvelles et offres spéciales :</p>
+                <input type="email" placeholder="Votre email">
+                <button type="submit">S'abonner</button>
+            </div>
+            <div class="legal-links">
+                <a href="legal.html">Mentions Légales</a>
+                <a href="legal.html">Politique de Confidentialité</a>
+                <p style="color: white;">© 2025 DJBC Wine and More. Tous droits réservés.</p>
+            
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script du panier -->
+    <script src="/js/cart.js"></script>
+    
+    <script>
+        // Fonction pour afficher le panier sur la page dédiée
+        function displayCartPage() {
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const cartSummaryContent = document.getElementById('cart-summary-content');
+            
+            if (cart.items.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart" style="padding: 60px 40px; text-align: center;">
+                        <h3>Votre panier est vide</h3>
+                        <p>Découvrez notre sélection de vins d'exception</p>
+                        <a href="wines.html" class="btn" style="display: inline-block; margin-top: 20px;">Voir nos vins</a>
+                    </div>
+                `;
+                cartSummaryContent.innerHTML = `
+                    <div class="summary-item">
+                        <span>Sous-total</span>
+                        <span>0 F CFA</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Total</span>
+                        <span>0 F CFA</span>
+                    </div>
+                `;
+                return;
+            }
+
+            // Afficher les articles du panier
+            const cartItemsHTML = `
+                <div class="cart-header" style="padding: 20px; border-bottom: 1px solid #eee; background: #f8f9fa;">
+                    <h3 style="margin: 0; color: #8B4513;">Vos Articles (${cart.getItemCount()} article${cart.getItemCount() > 1 ? 's' : ''})</h3>
+                    <button onclick="cart.clearCart(); displayCartPage();" class="btn-clear" style="margin-top: 10px;">Vider le panier</button>
+                </div>
+                <div class="cart-items" style="padding: 20px;">
+                    ${cart.items.map(item => `
+                        <div class="cart-item" data-id="${item.id}" style="margin-bottom: 20px;">
+                            <div class="cart-item-image">
+                                <img src="${item.image}" alt="${item.name}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 4px;">
+                            </div>
+                            <div class="cart-item-details" style="flex: 1;">
+                                <h4 style="margin: 0 0 5px 0; color: #8B4513;">${item.producer} - ${item.name}</h4>
+                                <p class="wine-info" style="margin: 2px 0; font-size: 0.9rem; color: #666;">${item.appellation} - ${item.region}</p>
+                                <p class="wine-vintage" style="margin: 2px 0; font-size: 0.9rem; color: #666;">${item.vintage !== 'N/A' ? `Millésime: ${item.vintage}` : 'Sans millésime'}</p>
+                                <p class="wine-color" style="margin: 2px 0; font-size: 0.9rem; color: #666;">${item.color}</p>
+                            </div>
+                            <div class="cart-item-quantity" style="display: flex; align-items: center; gap: 10px;">
+                                <button onclick="cart.updateQuantity('${item.id}', ${item.quantity - 1}); displayCartPage();" class="btn-quantity">-</button>
+                                <span style="font-weight: bold; min-width: 30px; text-align: center;">${item.quantity}</span>
+                                <button onclick="cart.updateQuantity('${item.id}', ${item.quantity + 1}); displayCartPage();" class="btn-quantity">+</button>
+                            </div>
+                            <div class="cart-item-price" style="text-align: right;">
+                                <span class="price" style="font-weight: bold; color: #8B4513; font-size: 1.1rem;">
+                                    ${item.prix} x ${item.quantity} = 
+                                    ${(parseInt(item.prix.replace(/\./g, '').replace(/[^\d]/g, '')) * item.quantity).toLocaleString()} F CFA
+                                </span>
+                                <button onclick="cart.removeItem('${item.id}'); displayCartPage();" class="btn-remove" style="margin-top: 5px;">×</button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            cartItemsContainer.innerHTML = cartItemsHTML;
+
+            // Afficher le récapitulatif
+            const subtotal = cart.getTotal();
+            const shipping = subtotal > 0 ? 15000 : 0; // Frais de livraison en F CFA
+            const total = subtotal + shipping;
+
+            const summaryHTML = `
+                <div class="summary-item">
+                    <span>Sous-total</span>
+                    <span>${subtotal.toLocaleString()} F CFA</span>
+                </div>
+                <div class="summary-item">
+                    <span>Frais de livraison</span>
+                    <span>${shipping.toLocaleString()} F CFA</span>
+                </div>
+                <div class="summary-item">
+                    <span>Total</span>
+                    <span>${total.toLocaleString()} F CFA</span>
+                </div>
+                <button onclick="cart.checkout()" class="checkout-btn">Finaliser la commande</button>
+                <div class="continue-shopping">
+                    <a href="wines.html">← Continuer les achats</a>
+                </div>
+            `;
+
+            cartSummaryContent.innerHTML = summaryHTML;
+        }
+
+        // Initialiser la page au chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            displayCartPage();
+        });
+
+        // Menu mobile
+        const toggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('nav-menu');
+
+        toggle.addEventListener('click', () => {
+            menu.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            const isClickInsideMenu = menu.contains(e.target);
+            const isClickOnToggle = toggle.contains(e.target);
+
+            if (!isClickInsideMenu && !isClickOnToggle) {
+                menu.classList.remove('show');
+            }
+        });
+
+        const menuLinks = menu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.remove('show');
+            });
+        });
+    </script>
+
+</body>
+</html> 
