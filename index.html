@@ -23,7 +23,8 @@
                 <li><a href="#about">À Propos</a></li>
                 <li><a href="wines.html">Nos Vins & Produits</a></li>
                 <li><a href="#experiences">Expériences</a></li>
-                <li><a href="#blog">Blog & Conseils</a></li>
+                <li><a href="blog.html">Blog & Conseils</a></li>
+                <li><a href="avis.html">Avis</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="cart-icon" onclick="toggleCart()">
@@ -231,32 +232,54 @@
                     </div>
                 </div>
             </div>
-            <p style="text-align: center; margin-top: 40px; color: var(--color-light-text);">Nous publierons un article toutes les deux semaines ou un par mois, avec l'aide de l'équipe FIKASSO, pour partager notre expertise et nos découvertes.</p>
+            <div style="text-align: center; margin-top: 50px;">
+                <a href="blog.html" class="btn">Voir tous les articles</a>
+            </div>
         </section>
 
         <section id="testimonials" class="container">
             <h2>Ce Que Nos Clients Disent</h2>
+
+            <!-- Résumé note moyenne (affiché si avis soumis) -->
+            <div class="rating-summary" id="rating-summary" style="display:none">
+                <div class="avg-rating-number" id="avg-rating">—</div>
+                <div class="avg-stars" id="avg-stars"></div>
+                <p id="review-count-text"></p>
+            </div>
+
+            <!-- Avis mis en avant (fixes) -->
             <div class="grid review-grid">
                 <div class="card review-card">
                     <div class="card-content">
+                        <div class="static-stars">★★★★★</div>
                         <p>"Une expérience inoubliable ! Les vins sont sublimes et l'accueil chaleureux. Je recommande vivement DJBC Wine and More !"</p>
-                        <p><strong>— Marie D.</strong></p>
+                        <p class="review-author-name"><strong>— Marie Dupont</strong></p>
                     </div>
                 </div>
                 <div class="card review-card">
                     <div class="card-content">
+                        <div class="static-stars">★★★★★</div>
                         <p>"J'ai découvert des saveurs incroyables lors de l'atelier de dégustation. Un vrai plus pour les amateurs de vin. Merci DJBC !"</p>
-                        <p><strong>— Jean L.</strong></p>
+                        <p class="review-author-name"><strong>— Jean Leclerc</strong></p>
                     </div>
                 </div>
                 <div class="card review-card">
                     <div class="card-content">
+                        <div class="static-stars">★★★★★</div>
                         <p>"Le coffret découverte est une excellente idée cadeau. La qualité est toujours au rendez-vous. Une cave de référence."</p>
-                        <p><strong>— Sophie P.</strong></p>
+                        <p class="review-author-name"><strong>— Sophie Perez</strong></p>
                     </div>
                 </div>
             </div>
-            <p style="text-align: center; margin-top: 40px; color: var(--color-light-text);">Votre avis nous est précieux ! Une section dédiée sera mise en place pour que vous puissiez partager votre expérience.</p>
+
+            <!-- Aperçu des avis visiteurs (depuis localStorage) -->
+            
+
+            <!-- Appel à l'action -->
+            <div style="text-align: center; margin-top: 55px;">
+                <a href="avis.html" class="btn">Laisser un Avis</a>
+                <a href="avis.html" class="btn btn-secondar">Voir Tous les Avis</a>
+            </div>
         </section>
 
         <section id="contact" class="container">
@@ -276,7 +299,7 @@
                     <h3>Informations Pratiques</h3>
                     <p><strong>Adresse :</strong>Boulevard Charles de Gaulle, secteur 03, porte 308, 11 BP 1113, Ouagadougou, Burkina Faso</p>
                     <p><strong>Téléphone :</strong> <a href="tel:+22607112526">+226 07 11 25 26</a></p>
-                    <p><strong>WhatsApp :</strong> <a href="tel:+22668437944">+226 68 43 79 44</a></p>
+                    <p><strong>WhatsApp :</strong> <a href="https://wa.me/22668437944" target="_blank">+226 68 43 79 44</a></p>
                     <p><strong>Email :</strong><a href="djbcwine@gmail.com">djbcwine@gmail.com</a></p>
                     <p><strong>Horaires d'ouverture :</strong></p>
                     <ul>
@@ -294,9 +317,9 @@
     <footer>
         <div class="container">
             <div class="social-links">
-                <a href="https://www.facebook.com/share/14HVRce3dsw/" target="_blank" aria-label="Facebook"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/facebook-new.png" alt="Facebook icon"></a>
-                <a href="#" aria-label="Instagram"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/instagram-new.png" alt="Instagram icon"></a>
-                <a href="#" aria-label="LinkedIn"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/linkedin.png" alt="LinkedIn icon"></a>
+                <a href="https://www.facebook.com/share/18QBWKUNj8/" target="_blank" aria-label="Facebook"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/facebook-new.png" alt="Facebook icon"></a>
+                <a href="https://www.instagram.com/djbcompany/" aria-label="Instagram"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/instagram-new.png" alt="Instagram icon"></a>
+                <a href="https://wa.me/22668437944" target="_blank" aria-label="WhatsApp"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/whatsapp.png" alt="WhatsApp icon"></a>
             </div>
             <div class="newsletter-signup">
                 <p style="color: white;">Abonnez-vous à notre newsletter pour les dernières nouvelles et offres spéciales :</p>
@@ -1137,9 +1160,55 @@ const wineImageMap = {
             }
         });
 
+        // ---- Aperçu des avis (lecture seule, soumission sur avis.html) ----
+        function renderStars(rating) {
+            return Array(5).fill(0).map((_, i) =>
+                `<span class="${i < rating ? 'star-filled' : 'star-empty'}">★</span>`
+            ).join('');
+        }
+
+        function getReviews() {
+            try { return JSON.parse(localStorage.getItem('djbc_reviews') || '[]'); }
+            catch { return []; }
+        }
+
+        function displayUserReviews() {
+            const reviews = getReviews();
+            const section = document.getElementById('user-reviews-section');
+            const grid = document.getElementById('user-reviews-grid');
+            if (reviews.length === 0) { section.style.display = 'none'; return; }
+            section.style.display = 'block';
+            grid.innerHTML = reviews.slice(0, 3).map(r => `
+                <div class="card review-card user-review-card">
+                    <div class="card-content">
+                        <div class="review-stars">${renderStars(r.rating)}</div>
+                        <p>"${r.comment}"</p>
+                        <div class="review-author">
+                            <strong>— ${r.name}</strong>
+                            <span class="review-date">${r.date}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateRatingSummary() {
+            const reviews = getReviews();
+            const summaryEl = document.getElementById('rating-summary');
+            if (reviews.length === 0) { summaryEl.style.display = 'none'; return; }
+            const avg = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+            document.getElementById('avg-rating').textContent = avg.toFixed(1);
+            document.getElementById('avg-stars').innerHTML = renderStars(Math.round(avg));
+            document.getElementById('review-count-text').textContent =
+                `${reviews.length} avis visiteur${reviews.length > 1 ? 's' : ''}`;
+            summaryEl.style.display = 'flex';
+        }
+
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', () => {
             displayPopularWines();
+            displayUserReviews();
+            updateRatingSummary();
         });
 
         // Toggle menu on click
@@ -1171,6 +1240,11 @@ const wineImageMap = {
 
     <!-- Script du panier -->
     <script src="/js/cart.js"></script>
+
+    <!-- Bouton flottant WhatsApp -->
+    <a href="https://wa.me/22668437944" class="whatsapp-float" target="_blank" aria-label="Contacter sur WhatsApp">
+        <img src="https://img.icons8.com/ios-filled/40/ffffff/whatsapp.png" alt="WhatsApp">
+    </a>
 
 </body>
 </html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & Conseils - DJBC Wine and More</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap">
+    <link rel="stylesheet" href="/style/index.css">
+    <link rel="stylesheet" href="/style/cart.css">
+    <link rel="stylesheet" href="/style/blog.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">DJBC Wine and More</div>
+                <button class="menu-toggle" id="menu-toggle">&#9776;</button>
+                <ul id="nav-menu">
+                    <li><a href="index.html#home">Accueil</a></li>
+                    <li><a href="index.html#about">À Propos</a></li>
+                    <li><a href="wines.html">Nos Vins &amp; Produits</a></li>
+                    <li><a href="index.html#experiences">Expériences</a></li>
+                    <li><a href="blog.html" class="nav-active">Blog &amp; Conseils</a></li>
+                    <li><a href="avis.html">Avis</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                    </svg>
+                    <span id="cart-count" class="cart-count">0</span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-panel">
+            <div class="cart-header">
+                <h3>Votre Panier</h3>
+                <button class="cart-close" onclick="toggleCart()">&times;</button>
+            </div>
+            <div id="cart-container" class="cart-container"></div>
+        </div>
+    </div>
+
+    <main>
+        <section class="blog-hero">
+            <div class="blog-hero-content">
+                <span class="blog-label">Notre Blog</span>
+                <h1>Conseils &amp; Découvertes</h1>
+                <p>Vignerons passionnés, appellations d'exception, accords parfaits — plongez dans l'univers du vin avec nos experts.</p>
+            </div>
+        </section>
+
+        <section id="articles" class="container">
+            <h2>Nos Articles</h2>
+
+            <div class="blog-categories">
+                <button class="category-btn active" data-category="all">Tous les articles</button>
+                <button class="category-btn" data-category="vignerons">Vignerons</button>
+                <button class="category-btn" data-category="appellations">Appellations</button>
+                <button class="category-btn" data-category="accords">Accords</button>
+                <button class="category-btn" data-category="conseils">Conseils</button>
+            </div>
+
+            <div class="articles-grid" id="articles-grid"></div>
+        </section>
+    </main>
+
+    <div id="article-modal" class="article-modal">
+        <div class="article-modal-inner">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/14HVRce3dsw/" target="_blank" aria-label="Facebook"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/facebook-new.png" alt="Facebook icon"></a>
+                <a href="#" aria-label="Instagram"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/instagram-new.png" alt="Instagram icon"></a>
+                <a href="https://wa.me/22668437944" target="_blank" aria-label="WhatsApp"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/whatsapp.png" alt="WhatsApp icon"></a>
+            </div>
+            <div class="newsletter-signup">
+                <p style="color: white;">Abonnez-vous à notre newsletter pour les dernières nouvelles et offres spéciales :</p>
+                <input type="email" placeholder="Votre email">
+                <button type="submit">S'abonner</button>
+            </div>
+            <div class="legal-links">
+                <a href="legal.html">Mentions Légales</a>
+                <a href="legal.html">Politique de Confidentialité</a>
+                <p style="color: white;">© 2025 DJBC Wine and More. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const articles = [
+            {
+                id: 1,
+                title: "Portrait de Vigneron : Rencontre avec l'Âme du Terroir",
+                category: "vignerons",
+                categoryLabel: "Vignerons",
+                date: "15 Avril 2025",
+                readTime: "5 min",
+                image: "img/vigneron.jpg",
+                summary: "Découvrez l'histoire et la passion de nos vignerons partenaires qui façonnent des vins d'exception, respectueux de la nature et de leurs traditions.",
+                content: `
+                    <p>Dans les vignes de Bourgogne, au lever du soleil, Pierre Bouley marche entre ses rangs de Pinot Noir avec cette sérénité que seuls ceux qui ont tout donné pour leur terre peuvent arborer. Depuis quatre générations, la famille Bouley cultive ce terroir avec une rigueur et un amour qui se retrouvent dans chaque bouteille.</p>
+                    <h4>L'Héritage Familial</h4>
+                    <p>Le domaine Bouley a été fondé en 1952 par Jean-Baptiste Bouley, un homme qui avait appris à lire le vin avant de lire les livres. Chaque parcelle, chaque cuvée raconte une histoire familiale transmise de père en fils, de mère en fille.</p>
+                    <p>Aujourd'hui, c'est Pierre qui veille sur les 12 hectares du domaine. Il a choisi de passer en agriculture biologique dès 2010, bien avant que ce soit une mode : <em>"Le terroir nous parle, encore faut-il l'écouter. Avec les traitements chimiques, on coupe ce dialogue."</em></p>
+                    <h4>La Philosophie du Terroir</h4>
+                    <p>Chez Bouley, on ne cherche pas à corriger la nature, mais à l'accompagner. Les vendanges se font exclusivement à la main, en petites caisses pour ne pas abîmer le fruit. La vinification reste simple : les raisins parlent d'eux-mêmes.</p>
+                    <p><em>"Un grand vin, c'est un vin honnête. Il reflète son année, son sol, son soleil. On ne triche pas avec le terroir, ou alors c'est du marketing, pas du vin"</em>, confie Pierre avec un sourire.</p>
+                    <h4>Les Vins Phares</h4>
+                    <p>L'Aloxe-Corton 2020 du domaine est sans doute le plus représentatif de cette philosophie : une robe grenat profonde, un nez de fruits rouges mûrs et de sous-bois, une bouche charnue qui reflète la richesse exceptionnelle de ce millésime. Un vin de garde qui se révélera pleinement dans 5 à 10 ans.</p>
+                    <p>Le Monthélie "Aux Fournereaux", quant à lui, est plus immédiatement accessible : fruité, élégant, taillé pour accompagner un repas en bonne compagnie.</p>
+                    <blockquote>"Le vin, c'est une conversation entre l'homme et la terre. Mon rôle, c'est d'être un bon traducteur." — Pierre Bouley</blockquote>
+                    <p>Rencontrer des vignerons comme Pierre, c'est comprendre pourquoi le vin n'est pas qu'une boisson. C'est une culture vivante, un héritage en mouvement, une passion qui se partage à chaque verre.</p>
+                `
+            },
+            {
+                id: 2,
+                title: "Tout Savoir sur le Chablis : Fraîcheur et Minéralité",
+                category: "appellations",
+                categoryLabel: "Appellations",
+                date: "1 Mars 2025",
+                readTime: "7 min",
+                image: "img/chablis.jpeg",
+                summary: "Plongez dans l'univers de cette appellation emblématique de Bourgogne, ses caractéristiques uniques et ses meilleurs accords mets-vins.",
+                content: `
+                    <p>Il existe en Bourgogne une appellation qui ressemble à nulle autre : le Chablis. Situé au nord de la Bourgogne viticole, ce vignoble produit l'un des Chardonnay les plus reconnaissables du monde, avec cette minéralité iodée qui évoque presque la mer malgré les dizaines de kilomètres qui l'en séparent.</p>
+                    <h4>Un Terroir d'Exception</h4>
+                    <p>Le secret du Chablis réside dans son sol : le Kimméridgien. Cette roche calcaire datant du Jurassique supérieur (il y a 150 millions d'années) est composée d'une multitude de petits fossiles d'huîtres et de coquillages. C'est de là que vient cette minéralité si caractéristique, cette "pierre à fusil" perçue au nez et cette salinité en bouche.</p>
+                    <p>Le climat est également déterminant : semi-continental, avec des hivers froids et des printemps tardifs qui exposent les vignes au risque de gel. Ce stress climatique force la vigne à travailler dur, produisant des raisins de petite taille mais d'une concentration aromatique remarquable.</p>
+                    <h4>La Hiérarchie des Appellations</h4>
+                    <p>Comme toute la Bourgogne, le Chablis est hiérarchisé selon la qualité des terroirs :</p>
+                    <ul>
+                        <li><strong>Petit Chablis :</strong> L'entrée de gamme, vif et fruité, idéal pour l'apéritif.</li>
+                        <li><strong>Chablis :</strong> Le niveau village, expression typique du terroir Kimméridgien.</li>
+                        <li><strong>Chablis Premier Cru :</strong> 40 lieux-dits dont Montée de Tonnerre et Fourchaume.</li>
+                        <li><strong>Chablis Grand Cru :</strong> Le sommet, 7 vignobles sur une colline unique (Vaudésir, Les Clos, Blanchot...).</li>
+                    </ul>
+                    <h4>Comment le Déguster</h4>
+                    <p>Le Chablis se sert frais, entre 10 et 12°C, dans un verre de type bourgogne blanc. Il mérite d'être ouvert et aéré quelques minutes avant la dégustation. Évitez les températures trop froides qui bloqueraient les arômes.</p>
+                    <h4>Les Accords Parfaits</h4>
+                    <p>La minéralité iodée du Chablis en fait le compagnon idéal des fruits de mer et des poissons. Les huîtres sont l'accord mythique, presque un hommage au passé fossile du terroir. Mais le Chablis s'exprime aussi merveilleusement avec :</p>
+                    <ul>
+                        <li>Saint-Jacques poêlées au beurre citronné</li>
+                        <li>Filet de sole meunière</li>
+                        <li>Fromages de chèvre (Sancerre, Crottin de Chavignol)</li>
+                        <li>Risotto aux champignons et parmesan</li>
+                    </ul>
+                    <blockquote>"Le Chablis, c'est le vin qui vous donne l'impression de manger des huîtres au bord de la mer, même quand vous êtes au fond des terres." — Robert Parker</blockquote>
+                `
+            },
+            {
+                id: 3,
+                title: "Accords Mets & Vins : Le Guide des Fromages",
+                category: "accords",
+                categoryLabel: "Accords",
+                date: "15 Février 2025",
+                readTime: "6 min",
+                image: "img/Fromage.jpg",
+                summary: "Nos meilleurs conseils pour sublimer vos fromages avec le vin parfait. Des idées pour toutes les occasions et des pépites à découvrir.",
+                content: `
+                    <p>L'accord fromage-vin est l'un des exercices les plus délicats de la gastronomie française. Contrairement à ce que l'on pourrait croire, le rouge n'est pas toujours le meilleur partenaire du fromage. Les blancs, et même les vins effervescents, peuvent créer des harmonies absolument exceptionnelles.</p>
+                    <h4>Pâtes Molles à Croûte Fleurie (Camembert, Brie)</h4>
+                    <p>Ces fromages crémeux et doux s'accordent merveilleusement avec des vins blancs vifs et fruités. Le Champagne est l'accord de référence : ses bulles nettoient le palais entre chaque bouchée, et son acidité contraste avec le gras du fromage.</p>
+                    <p><strong>Nos suggestions :</strong> Champagne Ruinart Blanc de Blancs, Vouvray Sec Brisebarre, Petit Chablis Millet</p>
+                    <h4>Pâtes Molles à Croûte Lavée (Munster, Époisses)</h4>
+                    <p>Ces fromages puissants et parfumés demandent des vins qui peuvent leur tenir tête. Pour les amateurs de rouge, un Pinot Noir léger peut également convenir.</p>
+                    <p><strong>Nos suggestions :</strong> Bourgogne Pinot Noir Bouley, Vouvray Moelleux Grande Réserve</p>
+                    <h4>Pâtes Pressées Cuites (Comté, Beaufort, Gruyère)</h4>
+                    <p>Ces fromages durs et fruités s'accordent parfaitement avec les blancs de Bourgogne ou des Chardonnay. Le Chablis Premier Cru est un accord magnifique avec un vieux Comté.</p>
+                    <p><strong>Nos suggestions :</strong> Chablis Millet, Rully La Chaponnière Ninot, Champagne</p>
+                    <h4>Pâtes Persillées (Roquefort, Bleu d'Auvergne)</h4>
+                    <p>C'est ici que la règle rouge-fromage vole en éclats ! Les vins liquoreux sont les partenaires naturels des fromages bleus. Le Sauternes avec le Roquefort est un accord légendaire : le sel du fromage contraste avec le sucre du vin, créant une harmonie gustative inoubliable.</p>
+                    <p><strong>Nos suggestions :</strong> Sauternes Château Fontaine, Vouvray Moelleux Grande Réserve, L'Enclos des Roses</p>
+                    <h4>Fromages de Chèvre</h4>
+                    <p>Le Sauvignon Blanc est l'accord parfait avec les fromages de chèvre. La Loire est la région de référence, et le cépage s'exprime avec une vivacité herbacée qui répond aux notes caprines.</p>
+                    <p><strong>Nos suggestions :</strong> Perrière (Terres Blanches), Jurançon Sec Renaissance, Chablis Millet</p>
+                    <blockquote>Conseil : Évitez les vins rouges tanniques avec les fromages jeunes et crémeux — les tanins entrent en conflit avec les matières grasses et donnent une sensation métallique désagréable.</blockquote>
+                `
+            },
+            {
+                id: 4,
+                title: "L'Art de la Dégustation : Guide du Débutant",
+                category: "conseils",
+                categoryLabel: "Conseils",
+                date: "5 Janvier 2025",
+                readTime: "8 min",
+                image: "img/plateaux-degustation.jpeg",
+                summary: "Apprenez à déguster le vin comme un expert : l'examen visuel, olfactif et gustatif expliqués simplement pour tous les niveaux.",
+                content: `
+                    <p>Déguster un vin, c'est bien plus que simplement le boire. C'est un moment de pleine conscience, une invitation à mobiliser tous ses sens pour explorer un monde de complexité et de nuances. Et bonne nouvelle : cela s'apprend !</p>
+                    <h4>L'Examen Visuel : Ce Que Révèle la Robe</h4>
+                    <p>Inclinez légèrement votre verre devant un fond blanc. Observez :</p>
+                    <ul>
+                        <li><strong>La couleur :</strong> Un vin rouge jeune est souvent violet ou rubis. En vieillissant, il tire vers le grenat, puis le tuilé (orangé). Un blanc jeune est vert-jaune, puis évolue vers l'or, puis l'ambre.</li>
+                        <li><strong>L'intensité :</strong> Est-il limpide, transparent ou dense ? Une couleur profonde indique souvent un vin concentré.</li>
+                        <li><strong>Les jambes :</strong> Ces filets qui coulent sur les parois du verre indiquent la teneur en alcool et en glycérol (donc la richesse du vin).</li>
+                    </ul>
+                    <h4>L'Examen Olfactif : L'Art du Nez</h4>
+                    <p>C'est l'étape la plus révélatrice. Commencez par sentir le vin sans agiter le verre (premier nez), puis tournez le verre pour oxygéner le vin (deuxième nez).</p>
+                    <p>Les arômes se classent en trois familles :</p>
+                    <ul>
+                        <li><strong>Arômes primaires :</strong> Liés au cépage (fruits, fleurs). Exemple : les fruits rouges du Pinot Noir, la pêche et les fleurs du Viognier.</li>
+                        <li><strong>Arômes secondaires :</strong> Liés à la fermentation (pain, beurre, levure).</li>
+                        <li><strong>Arômes tertiaires (bouquet) :</strong> Liés à l'élevage et au vieillissement (cuir, tabac, truffe, vanille du bois, épices). Ces arômes se développent avec l'âge.</li>
+                    </ul>
+                    <h4>L'Examen Gustatif : La Bouche</h4>
+                    <p>Prenez une gorgée et laissez le vin s'étaler sur toute votre langue. Analysez :</p>
+                    <ul>
+                        <li><strong>L'attaque :</strong> La première impression — est-elle fraîche, ronde, tannique ?</li>
+                        <li><strong>Le milieu de bouche :</strong> L'équilibre entre l'acidité, le sucre, l'alcool et les tanins.</li>
+                        <li><strong>La finale :</strong> Combien de temps les arômes persistent-ils ? Plus c'est long, plus le vin est grand. On mesure en "caudalies" (secondes).</li>
+                    </ul>
+                    <h4>Conseils Pratiques</h4>
+                    <ul>
+                        <li>Dégustez toujours à jeun ou avec du pain neutre</li>
+                        <li>Comparez deux vins côte à côte — les différences deviennent évidentes</li>
+                        <li>Notez vos impressions — l'écriture fixe la mémoire aromatique</li>
+                        <li>Ne craignez pas de vous tromper — la dégustation est subjective</li>
+                    </ul>
+                    <blockquote>"La dégustation du vin est une discipline qui se cultive comme le vin lui-même : avec patience, curiosité et humilité." — Émile Peynaud</blockquote>
+                `
+            },
+            {
+                id: 5,
+                title: "Les Grands Millésimes Français : 2015–2023",
+                category: "conseils",
+                categoryLabel: "Conseils",
+                date: "20 Novembre 2024",
+                readTime: "6 min",
+                image: "img/mineralité.jpg",
+                summary: "Quelles années garder, quelles années boire maintenant ? Notre guide des millésimes récents pour faire les bons choix à la cave.",
+                content: `
+                    <p>Le millésime, c'est l'empreinte climatique d'une année sur le vin. Deux bouteilles du même domaine, du même cépage, mais de deux années différentes peuvent être radicalement différentes. Voici notre guide des derniers grands millésimes français.</p>
+                    <h4>2015 : Le Millésime du Siècle</h4>
+                    <p>Universellement reconnu comme exceptionnel, 2015 a produit des vins puissants, concentrés, avec une maturité parfaite. En Bordeaux comme en Bourgogne, les rouges sont monumentaux. À garder précieusement pour les occasions exceptionnelles.</p>
+                    <p><strong>À boire :</strong> Les blancs se dégustent parfaitement maintenant. Les rouges de grande garde ont encore 10-20 ans devant eux.</p>
+                    <h4>2016 : L'Élégance Pure en Bordeaux</h4>
+                    <p>Après un printemps difficile, l'été a été exceptionnel. Les Bordeaux 2016 sont les plus équilibrés de la décennie : fruits noirs, tanins soyeux, fraîcheur remarquable. Les vins du Rhône sont également excellents.</p>
+                    <h4>2019 : La Générosité Concentrée</h4>
+                    <p>Un été chaud et sec a produit des vins très généreux, presque opulents. Idéal pour les amateurs de vins riches et expressifs. La Bourgogne a produit des blancs de grande qualité.</p>
+                    <h4>2020 : Chaleur Maîtrisée</h4>
+                    <p>Malgré un été chaud, les nuits fraîches ont préservé l'acidité. Les vins sont aromatiques et équilibrés. La Bourgogne a brillé particulièrement, produisant des blancs et des rouges remarquables.</p>
+                    <h4>2021 : Le Retour de la Fraîcheur</h4>
+                    <p>Un millésime difficile climatiquement (gel de printemps, maladies) mais qui a produit des vins délicats et fins, avec une acidité marquée qui leur donnera une belle longévité. Les amateurs de vins élégants seront ravis.</p>
+                    <h4>2022 : Chaleur Extrême, Vins Exceptionnels</h4>
+                    <p>L'été 2022, avec ses records de chaleur, a produit des vins très concentrés. Les vignerons qui ont su gérer le stress hydrique ont obtenu des vins d'une puissance et d'une générosité exceptionnelles.</p>
+                    <h4>2023 : La Surprise de l'Année</h4>
+                    <p>Après un printemps humide, l'été s'est révélé parfait. Des vendanges tardives sous un soleil radieux ont produit des vins équilibrés, fruités, avec une belle fraîcheur. Un millésime à surveiller de près !</p>
+                    <blockquote>Conseil pratique : Conservez vos vins de garde dans un endroit frais (12-14°C), à l'abri de la lumière et des vibrations. La cave idéale maintient une humidité de 70-80% pour préserver les bouchons.</blockquote>
+                `
+            }
+        ];
+
+        function renderStarsStatic(count) {
+            return Array(5).fill(0).map((_, i) =>
+                `<span style="color:${i < count ? 'var(--color-gold)' : '#ddd'}">★</span>`
+            ).join('');
+        }
+
+        function renderArticleCard(article) {
+            return `
+                <article class="blog-card" data-category="${article.category}" onclick="openModal(${article.id})">
+                    <div class="blog-card-image">
+                        <img src="${article.image}" alt="${article.title}" loading="lazy">
+                        <span class="blog-category-badge">${article.categoryLabel}</span>
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-meta">
+                            <span>📅 ${article.date}</span>
+                            <span>⏱ ${article.readTime} de lecture</span>
+                        </div>
+                        <h3>${article.title}</h3>
+                        <p>${article.summary}</p>
+                        <button class="btn-read-more">Lire l'article →</button>
+                    </div>
+                </article>
+            `;
+        }
+
+        function renderArticles(list) {
+            const grid = document.getElementById('articles-grid');
+            if (list.length === 0) {
+                grid.innerHTML = '<p class="no-articles">Aucun article dans cette catégorie pour l\'instant.</p>';
+                return;
+            }
+            grid.innerHTML = list.map(renderArticleCard).join('');
+        }
+
+        function openModal(id) {
+            const article = articles.find(a => a.id === id);
+            if (!article) return;
+            document.getElementById('modal-body').innerHTML = `
+                <div class="modal-article-image">
+                    <img src="${article.image}" alt="${article.title}">
+                </div>
+                <div class="modal-article-content">
+                    <div class="modal-meta">
+                        <span class="blog-category-badge">${article.categoryLabel}</span>
+                        <span class="blog-date">📅 ${article.date}</span>
+                        <span class="blog-read-time">⏱ ${article.readTime} de lecture</span>
+                    </div>
+                    <h2>${article.title}</h2>
+                    <div class="modal-article-body">${article.content}</div>
+                </div>
+            `;
+            document.getElementById('article-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('article-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const cat = btn.dataset.category;
+                const filtered = cat === 'all' ? articles : articles.filter(a => a.category === cat);
+                renderArticles(filtered);
+            });
+        });
+
+        document.getElementById('article-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('article-modal')) closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        const toggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('nav-menu');
+        toggle.addEventListener('click', () => menu.classList.toggle('show'));
+        document.addEventListener('click', (e) => {
+            if (!menu.contains(e.target) && !toggle.contains(e.target)) menu.classList.remove('show');
+        });
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => menu.classList.remove('show'));
+        });
+
+        window.addEventListener('scroll', () => {
+            document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderArticles(articles);
+        });
+        renderArticles(articles);
+    </script>
+
+    <script src="/js/cart.js"></script>
+
+    <!-- Bouton flottant WhatsApp -->
+    <a href="https://wa.me/22668437944" class="whatsapp-float" target="_blank" aria-label="Contacter sur WhatsApp">
+        <img src="https://img.icons8.com/ios-filled/40/ffffff/whatsapp.png" alt="WhatsApp">
+    </a>
+
+</body>
+</html>

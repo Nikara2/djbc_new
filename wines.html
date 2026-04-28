@@ -86,7 +86,7 @@
             <div class="social-links">
                 <a href="https://www.facebook.com/share/14HVRce3dsw/" target="_blank" aria-label="Facebook"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/facebook-new.png" alt="Facebook icon"></a>
                 <a href="#" aria-label="Instagram"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/instagram-new.png" alt="Instagram icon"></a>
-                <a href="#" aria-label="LinkedIn"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/linkedin.png" alt="LinkedIn icon"></a>
+                <a href="https://wa.me/22668437944" target="_blank" aria-label="WhatsApp"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/whatsapp.png" alt="WhatsApp icon"></a>
             </div>
             <div class="newsletter-signup">
                 <p style="color: white;" >Abonnez-vous à notre newsletter pour les dernières nouvelles et offres spéciales :</p>
@@ -940,7 +940,7 @@ const wineImageMap = {
             "Pommard": "image/vins_rouges/Pommard_village.png",
             "Beaujolais Village": "image/vins_rouges/domaine-pierre-andre-dumas-beaujolais-villages-bea.png",
             "Brouilly": "image/vins_rouges/Brouilly-Pierre-Andre-Dumas.jpeg",
-            "Mont Sanguié": "image/vins_rouges/Mont Sanguié 2022 (Incandia Bio).png",
+            "Mont Sanguié": "image/vins_rouges/Mont Sanguié.png",
             "Vermentino doc 'Yennenga'": "image/vins_rouges/Mont Sanguié 2022 (Incandia Bio).png",
             "Ju de Vie": "image/vins_rouges/Ju de Vie 2022.png",
             "Marius Grenache": "image/vins_rouges/Marius Grenache 2023 (M. Chapoutier).jpeg",
@@ -1165,6 +1165,17 @@ const wineImageMap = {
 
     <!-- Script du panier -->
     <script src="/js/cart.js"></script>
+
+    <!-- Bouton flottant WhatsApp -->
+    <style>
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.5); z-index: 9999; transition: all 0.3s ease; text-decoration: none; }
+        .whatsapp-float:hover { background: #1ebe5d; transform: scale(1.12); box-shadow: 0 6px 25px rgba(37,211,102,0.7); }
+        .whatsapp-float img { width: 32px; height: 32px; }
+        @media (max-width: 768px) { .whatsapp-float { bottom: 20px; right: 20px; width: 52px; height: 52px; } .whatsapp-float img { width: 28px; height: 28px; } }
+    </style>
+    <a href="https://wa.me/22668437944" class="whatsapp-float" target="_blank" aria-label="Contacter sur WhatsApp">
+        <img src="https://img.icons8.com/ios-filled/40/ffffff/whatsapp.png" alt="WhatsApp">
+    </a>
 
 </body>
 

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avis Clients - DJBC Wine and More</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap">
+    <link rel="stylesheet" href="/style/index.css">
+    <link rel="stylesheet" href="/style/cart.css">
+    <link rel="stylesheet" href="/style/avis.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">DJBC Wine and More</div>
+                <button class="menu-toggle" id="menu-toggle">&#9776;</button>
+                <ul id="nav-menu">
+                    <li><a href="index.html#home">Accueil</a></li>
+                    <li><a href="index.html#about">À Propos</a></li>
+                    <li><a href="wines.html">Nos Vins &amp; Produits</a></li>
+                    <li><a href="index.html#experiences">Expériences</a></li>
+                    <li><a href="blog.html">Blog &amp; Conseils</a></li>
+                    <li><a href="avis.html" class="nav-active">Avis</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                    </svg>
+                    <span id="cart-count" class="cart-count">0</span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-panel">
+            <div class="cart-header">
+                <h3>Votre Panier</h3>
+                <button class="cart-close" onclick="toggleCart()">&times;</button>
+            </div>
+            <div id="cart-container" class="cart-container"></div>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero -->
+        <section class="avis-hero">
+            <div class="avis-hero-content">
+                <span class="avis-label">Vos Avis</span>
+                <h1>Partagez Votre Expérience</h1>
+                <p>Votre avis nous est précieux et aide d'autres amateurs de vin à découvrir DJBC Wine and More.</p>
+            </div>
+        </section>
+
+        <!-- Formulaire de dépôt d'avis -->
+        <section id="deposer-avis" class="container">
+            <h2>Déposez Votre Avis</h2>
+
+            <div class="avis-form-wrapper">
+                <form id="review-form" onsubmit="submitReview(event)" novalidate>
+
+                    <!-- Prénom -->
+                    <div class="form-field">
+                        <label for="review-name" class="field-label">Votre prénom <span class="required">*</span></label>
+                        <input
+                            type="text"
+                            id="review-name"
+                            placeholder="Ex : Marie Dupont"
+                            maxlength="50"
+                            autocomplete="given-name"
+                        >
+                        <div class="field-footer">
+                            <span class="error-message" id="name-error"></span>
+                            <span class="char-counter" id="name-counter">0 / 50 (minimum 6)</span>
+                        </div>
+                    </div>
+
+                    <!-- Note -->
+                    <div class="form-field">
+                        <label class="field-label">Votre note <span class="required">*</span></label>
+                        <div class="star-input" id="star-input" role="group" aria-label="Note de 1 à 5 étoiles">
+                            <span class="star-item" data-value="1" tabindex="0" role="button" aria-label="1 étoile">★</span>
+                            <span class="star-item" data-value="2" tabindex="0" role="button" aria-label="2 étoiles">★</span>
+                            <span class="star-item" data-value="3" tabindex="0" role="button" aria-label="3 étoiles">★</span>
+                            <span class="star-item" data-value="4" tabindex="0" role="button" aria-label="4 étoiles">★</span>
+                            <span class="star-item" data-value="5" tabindex="0" role="button" aria-label="5 étoiles">★</span>
+                        </div>
+                        <span class="rating-hint" id="rating-hint">Cliquez pour noter</span>
+                        <span class="error-message" id="rating-error"></span>
+                    </div>
+
+                    <!-- Avis -->
+                    <div class="form-field">
+                        <label for="review-comment" class="field-label">Votre avis <span class="required">*</span></label>
+                        <textarea
+                            id="review-comment"
+                            placeholder="Partagez votre expérience avec DJBC Wine and More..."
+                            rows="5"
+                            maxlength="500"
+                        ></textarea>
+                        <div class="field-footer">
+                            <span class="error-message" id="comment-error"></span>
+                            <span class="char-counter" id="comment-counter">0 / 500 (minimum 15)</span>
+                        </div>
+                    </div>
+
+                    <!-- Message de succès -->
+                    <div class="review-success" id="review-success" style="display:none">
+                        ✓ Merci pour votre avis ! Il est maintenant visible ci-dessous.
+                    </div>
+
+                    <button type="submit" class="btn btn-submit">Publier mon Avis</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Avis des clients -->
+        <section id="tous-les-avis" class="container">
+            <h2>Avis de Nos Clients</h2>
+
+            <!-- Résumé note moyenne -->
+            <div class="rating-summary" id="rating-summary" style="display:none">
+                <div class="avg-rating-number" id="avg-rating">—</div>
+                <div class="avg-stars" id="avg-stars"></div>
+                <p id="review-count-text"></p>
+            </div>
+
+            <!-- Avis mis en avant (fixes) -->
+            <div class="featured-label">Avis sélectionnés</div>
+            <div class="grid review-grid">
+                <div class="card review-card">
+                    <div class="card-content">
+                        <div class="static-stars">★★★★★</div>
+                        <p>"Une expérience inoubliable ! Les vins sont sublimes et l'accueil chaleureux. Je recommande vivement DJBC Wine and More !"</p>
+                        <div class="review-author">
+                            <strong>— Marie Dupont</strong>
+                            <span class="review-date">Avis vérifié</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card review-card">
+                    <div class="card-content">
+                        <div class="static-stars">★★★★★</div>
+                        <p>"J'ai découvert des saveurs incroyables lors de l'atelier de dégustation. Un vrai plus pour les amateurs de vin. Merci DJBC !"</p>
+                        <div class="review-author">
+                            <strong>— Jean Leclerc</strong>
+                            <span class="review-date">Avis vérifié</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card review-card">
+                    <div class="card-content">
+                        <div class="static-stars">★★★★★</div>
+                        <p>"Le coffret découverte est une excellente idée cadeau. La qualité est toujours au rendez-vous. Une cave de référence."</p>
+                        <div class="review-author">
+                            <strong>— Sophie Perez</strong>
+                            <span class="review-date">Avis vérifié</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avis soumis par les visiteurs -->
+            
+            <!-- Aucun avis encore -->
+            <div id="no-reviews-msg" class="no-reviews-msg" style="display:none">
+                <p>Soyez le premier à laisser un avis !</p>
+                <a href="#deposer-avis" class="btn">Déposer un avis</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/14HVRce3dsw/" target="_blank" aria-label="Facebook"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/facebook-new.png" alt="Facebook icon"></a>
+                <a href="#" aria-label="Instagram"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/instagram-new.png" alt="Instagram icon"></a>
+                <a href="https://wa.me/22668437944" target="_blank" aria-label="WhatsApp"><img src="https://img.icons8.com/ios-filled/30/FDF6E3/whatsapp.png" alt="WhatsApp icon"></a>
+            </div>
+            <div class="newsletter-signup">
+                <p style="color: white;">Abonnez-vous à notre newsletter pour les dernières nouvelles et offres spéciales :</p>
+                <input type="email" placeholder="Votre email">
+                <button type="submit">S'abonner</button>
+            </div>
+            <div class="legal-links">
+                <a href="legal.html">Mentions Légales</a>
+                <a href="legal.html">Politique de Confidentialité</a>
+                <p style="color: white;">© 2025 DJBC Wine and More. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentRating = 0;
+        const ratingLabels = ['', '⭐ Mauvais', '⭐⭐ Passable', '⭐⭐⭐ Bien', '⭐⭐⭐⭐ Très bien', '⭐⭐⭐⭐⭐ Excellent !'];
+
+        // ---- Étoiles ----
+        function highlightStars(count) {
+            document.querySelectorAll('.star-item').forEach(s => {
+                s.classList.toggle('highlighted', parseInt(s.dataset.value) <= count);
+            });
+        }
+
+        function setSelectedStars(count) {
+            document.querySelectorAll('.star-item').forEach(s => {
+                s.classList.remove('highlighted');
+                s.classList.toggle('selected', parseInt(s.dataset.value) <= count);
+            });
+        }
+
+        document.querySelectorAll('.star-item').forEach(star => {
+            star.addEventListener('mouseover', () => highlightStars(parseInt(star.dataset.value)));
+            star.addEventListener('click', () => {
+                currentRating = parseInt(star.dataset.value);
+                setSelectedStars(currentRating);
+                document.getElementById('rating-hint').textContent = ratingLabels[currentRating];
+                hideError('rating-error');
+            });
+            star.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    currentRating = parseInt(star.dataset.value);
+                    setSelectedStars(currentRating);
+                    document.getElementById('rating-hint').textContent = ratingLabels[currentRating];
+                    hideError('rating-error');
+                }
+            });
+        });
+        document.getElementById('star-input').addEventListener('mouseleave', () => highlightStars(currentRating));
+
+        // ---- Compteurs de caractères ----
+        document.getElementById('review-name').addEventListener('input', function () {
+            const len = this.value.trim().length;
+            const counter = document.getElementById('name-counter');
+            counter.textContent = `${len} / 50 (minimum 6)`;
+            counter.classList.toggle('too-short', len > 0 && len < 6);
+            if (len >= 6) hideError('name-error');
+        });
+
+        document.getElementById('review-comment').addEventListener('input', function () {
+            const len = this.value.trim().length;
+            const counter = document.getElementById('comment-counter');
+            counter.textContent = `${len} / 500 (minimum 15)`;
+            counter.classList.toggle('too-short', len > 0 && len < 15);
+            if (len >= 15) hideError('comment-error');
+        });
+
+        // ---- Gestion des erreurs ----
+        function showError(id, msg) {
+            const el = document.getElementById(id);
+            el.textContent = msg;
+            el.style.display = 'block';
+            const fieldId = id.replace('-error', '');
+            const field = document.getElementById(fieldId === 'rating' ? 'star-input' : fieldId === 'name' ? 'review-name' : 'review-comment');
+            if (field) field.classList.add('field-error');
+        }
+
+        function hideError(id) {
+            const el = document.getElementById(id);
+            el.textContent = '';
+            el.style.display = 'none';
+            const fieldId = id.replace('-error', '');
+            const field = document.getElementById(fieldId === 'rating' ? 'star-input' : fieldId === 'name' ? 'review-name' : 'review-comment');
+            if (field) field.classList.remove('field-error');
+        }
+
+        // ---- Validation ----
+        function validate() {
+            let valid = true;
+
+            const name = document.getElementById('review-name').value.trim();
+            if (name.length < 6) {
+                showError('name-error', name.length === 0
+                    ? 'Le prénom est obligatoire.'
+                    : `Minimum 6 caractères (actuellement : ${name.length}).`);
+                valid = false;
+            } else {
+                hideError('name-error');
+            }
+
+            if (currentRating === 0) {
+                showError('rating-error', 'Veuillez sélectionner une note.');
+                valid = false;
+            } else {
+                hideError('rating-error');
+            }
+
+            const comment = document.getElementById('review-comment').value.trim();
+            if (comment.length < 15) {
+                showError('comment-error', comment.length === 0
+                    ? 'L\'avis est obligatoire.'
+                    : `Minimum 15 caractères (actuellement : ${comment.length}).`);
+                valid = false;
+            } else {
+                hideError('comment-error');
+            }
+
+            return valid;
+        }
+
+        // ---- Soumission ----
+        function submitReview(e) {
+            e.preventDefault();
+            if (!validate()) return;
+
+            const review = {
+                name: document.getElementById('review-name').value.trim(),
+                rating: currentRating,
+                comment: document.getElementById('review-comment').value.trim(),
+                date: new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })
+            };
+
+            const reviews = getReviews();
+            reviews.unshift(review);
+            localStorage.setItem('djbc_reviews', JSON.stringify(reviews.slice(0, 50)));
+
+            document.getElementById('review-form').reset();
+            currentRating = 0;
+            setSelectedStars(0);
+            document.getElementById('rating-hint').textContent = 'Cliquez pour noter';
+            document.getElementById('name-counter').textContent = '0 / 50 (minimum 6)';
+            document.getElementById('comment-counter').textContent = '0 / 500 (minimum 15)';
+            document.getElementById('name-counter').classList.remove('too-short');
+            document.getElementById('comment-counter').classList.remove('too-short');
+
+            const successEl = document.getElementById('review-success');
+            successEl.style.display = 'block';
+            setTimeout(() => successEl.style.display = 'none', 5000);
+
+            displayUserReviews();
+            updateRatingSummary();
+
+            setTimeout(() => {
+                document.getElementById('tous-les-avis').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 400);
+        }
+
+        // ---- Affichage des avis ----
+        function renderStars(rating) {
+            return Array(5).fill(0).map((_, i) =>
+                `<span class="${i < rating ? 'star-filled' : 'star-empty'}">★</span>`
+            ).join('');
+        }
+
+        function getReviews() {
+            try { return JSON.parse(localStorage.getItem('djbc_reviews') || '[]'); }
+            catch { return []; }
+        }
+
+        function displayUserReviews() {
+            const reviews = getReviews();
+            const section = document.getElementById('user-reviews-section');
+            const grid = document.getElementById('user-reviews-grid');
+            const noMsg = document.getElementById('no-reviews-msg');
+
+            if (reviews.length === 0) {
+                section.style.display = 'none';
+                noMsg.style.display = 'block';
+                return;
+            }
+
+            noMsg.style.display = 'none';
+            section.style.display = 'block';
+            grid.innerHTML = reviews.map(r => `
+                <div class="card review-card user-review-card">
+                    <div class="card-content">
+                        <div class="review-stars">${renderStars(r.rating)}</div>
+                        <p>"${r.comment}"</p>
+                        <div class="review-author">
+                            <strong>— ${r.name}</strong>
+                            <span class="review-date">${r.date}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateRatingSummary() {
+            const reviews = getReviews();
+            const summaryEl = document.getElementById('rating-summary');
+            if (reviews.length === 0) { summaryEl.style.display = 'none'; return; }
+            const avg = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+            document.getElementById('avg-rating').textContent = avg.toFixed(1);
+            document.getElementById('avg-stars').innerHTML = renderStars(Math.round(avg));
+            document.getElementById('review-count-text').textContent =
+                `${reviews.length} avis visiteur${reviews.length > 1 ? 's' : ''}`;
+            summaryEl.style.display = 'flex';
+        }
+
+        // ---- Menu ----
+        const toggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('nav-menu');
+        toggle.addEventListener('click', () => menu.classList.toggle('show'));
+        document.addEventListener('click', e => {
+            if (!menu.contains(e.target) && !toggle.contains(e.target)) menu.classList.remove('show');
+        });
+        menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => menu.classList.remove('show')));
+
+        window.addEventListener('scroll', () => {
+            document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            displayUserReviews();
+            updateRatingSummary();
+        });
+    </script>
+
+    <script src="/js/cart.js"></script>
+
+    <!-- Bouton flottant WhatsApp -->
+    <a href="https://wa.me/22668437944" class="whatsapp-float" target="_blank" aria-label="Contacter sur WhatsApp">
+        <img src="https://img.icons8.com/ios-filled/40/ffffff/whatsapp.png" alt="WhatsApp">
+    </a>
+
+</body>
+</html>
